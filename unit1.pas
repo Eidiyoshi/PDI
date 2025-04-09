@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, Menus,
-  StdCtrls, Windows;
+  StdCtrls, Windows, Unit2;
 
 type
 
@@ -21,6 +21,7 @@ type
     MainMenu1: TMainMenu;
     MenuItem1: TMenuItem;
     MenuItem10: TMenuItem;
+    MenuItem11: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
     MenuItem4: TMenuItem;
@@ -34,6 +35,7 @@ type
     Separator1: TMenuItem;
     procedure Button1Click(Sender: TObject);
     procedure MenuItem10Click(Sender: TObject);
+    procedure MenuItem11Click(Sender: TObject);
     procedure MenuItem2Click(Sender: TObject);
     procedure MenuItem4Click(Sender: TObject);
     procedure MenuItem6Click(Sender: TObject);
@@ -85,6 +87,11 @@ begin
                   Image1.Canvas.Pixels[i,j] := cor;
                   imgOut[i,j] := cor;
              end;
+end;
+
+procedure TForm1.MenuItem11Click(Sender: TObject);
+begin
+  Form2.ShowModal;
 end;
 
 procedure TForm1.MenuItem4Click(Sender: TObject);

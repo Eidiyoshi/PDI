@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, Menus,
-  StdCtrls, Windows;
+  StdCtrls, Windows, Unit2;
 
 type
 
@@ -21,6 +21,7 @@ type
     MainMenu1: TMainMenu;
     MenuItem1: TMenuItem;
     MenuItem10: TMenuItem;
+    MenuItem11: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
     MenuItem4: TMenuItem;
@@ -34,6 +35,7 @@ type
     Separator1: TMenuItem;
     procedure Button1Click(Sender: TObject);
     procedure MenuItem10Click(Sender: TObject);
+    procedure MenuItem11Click(Sender: TObject);
     procedure MenuItem2Click(Sender: TObject);
     procedure MenuItem4Click(Sender: TObject);
     procedure MenuItem6Click(Sender: TObject);
@@ -78,13 +80,18 @@ end;
 
 procedure TForm1.MenuItem10Click(Sender: TObject);
 begin
-     cor := Image1.Canvas.Pixels[i,j];
-     R := GetRValue(cor);
-     G := GetGValue(cor);
-     B := GetBValue(cor);
-     Image2.Canvas.Pixels[i,j] := RGB(R,R,R);
-     Image3.Canvas.Pixels[i,j] := RGB(G,G,G);
-     Image4.Canvas.Pixels[i,j] := RGB(B,B,B);
+     for i := 0 to Image1.Height do
+         for j := 0 to Image1.Width do
+             begin
+                  cor := RGB(GetRValue(Image2.Canvas.Pixels[i,j]),GetGValue(Image3.Canvas.Pixels[i,j]),GetBValue(Image4.Canvas.Pixels[i,j]));
+                  Image1.Canvas.Pixels[i,j] := cor;
+                  imgOut[i,j] := cor;
+             end;
+end;
+
+procedure TForm1.MenuItem11Click(Sender: TObject);
+begin
+  Form2.ShowModal;
 end;
 
 procedure TForm1.MenuItem4Click(Sender: TObject);

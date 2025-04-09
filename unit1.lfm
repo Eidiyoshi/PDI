@@ -1,11 +1,11 @@
 object Form1: TForm1
-  Left = 794
-  Height = 800
-  Top = 96
-  Width = 1019
+  Left = 526
+  Height = 796
+  Top = 102
+  Width = 1077
   Caption = 'Form1'
-  ClientHeight = 800
-  ClientWidth = 1019
+  ClientHeight = 796
+  ClientWidth = 1077
   Menu = MainMenu1
   LCLVersion = '3.8.0.0'
   object Image1: TImage
@@ -82,6 +82,10 @@ object Form1: TForm1
       object MenuItem10: TMenuItem
         Caption = 'Juntar_RGB'
         OnClick = MenuItem10Click
+      end
+      object MenuItem11: TMenuItem
+        Caption = 'RGB para HSV'
+        OnClick = MenuItem11Click
       end
     end
   end

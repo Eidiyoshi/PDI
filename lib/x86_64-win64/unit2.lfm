@@ -1,0 +1,119 @@
+object Form2: TForm2
+  Left = 508
+  Height = 445
+  Top = 555
+  Width = 728
+  Caption = 'Form2'
+  ClientHeight = 445
+  ClientWidth = 728
+  OnCreate = FormCreate
+  LCLVersion = '3.8.0.0'
+  object Edit1: TEdit
+    Left = 97
+    Height = 23
+    Top = 92
+    Width = 80
+    TabOrder = 0
+  end
+  object Label15: TLabel
+    Left = 99
+    Height = 15
+    Top = 80
+    Width = 20
+    Caption = 'Red'
+  end
+  object Edit2: TEdit
+    Left = 97
+    Height = 23
+    Top = 151
+    Width = 80
+    TabOrder = 1
+    OnChange = Edit2Change
+  end
+  object Edit3: TEdit
+    Left = 97
+    Height = 23
+    Top = 208
+    Width = 80
+    TabOrder = 2
+    OnChange = Edit3Change
+  end
+  object Label1: TLabel
+    Left = 97
+    Height = 15
+    Top = 136
+    Width = 31
+    Caption = 'Green'
+  end
+  object Label2: TLabel
+    Left = 102
+    Height = 15
+    Top = 192
+    Width = 23
+    Caption = 'Blue'
+    OnClick = Label2Click
+  end
+  object Button1: TButton
+    Left = 240
+    Height = 25
+    Top = 120
+    Width = 115
+    Caption = 'RGB para HSL -->'
+    TabOrder = 3
+    OnClick = Button1Click
+  end
+  object Button2: TButton
+    Left = 240
+    Height = 25
+    Top = 192
+    Width = 115
+    Caption = '<-- HSL para RGB'
+    TabOrder = 4
+    OnClick = Button2Click
+  end
+  object Edit4: TEdit
+    Left = 440
+    Height = 23
+    Top = 92
+    Width = 80
+    TabOrder = 5
+    OnChange = Edit4Change
+  end
+  object R1: TLabel
+    Left = 442
+    Height = 15
+    Top = 80
+    Width = 22
+    Caption = 'Hue'
+  end
+  object Edit5: TEdit
+    Left = 440
+    Height = 23
+    Top = 151
+    Width = 80
+    TabOrder = 6
+    OnChange = Edit2Change
+  end
+  object Edit6: TEdit
+    Left = 440
+    Height = 23
+    Top = 208
+    Width = 80
+    TabOrder = 7
+    OnChange = Edit3Change
+  end
+  object Label3: TLabel
+    Left = 440
+    Height = 15
+    Top = 136
+    Width = 54
+    Caption = 'Saturation'
+  end
+  object Label4: TLabel
+    Left = 445
+    Height = 15
+    Top = 192
+    Width = 61
+    Caption = 'Lumination'
+  end
+end
