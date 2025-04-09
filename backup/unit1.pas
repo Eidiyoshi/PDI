@@ -25,6 +25,7 @@ type
     MenuItem12: TMenuItem;
     MenuItem13: TMenuItem;
     MenuItem14: TMenuItem;
+    MenuItem15: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
     MenuItem4: TMenuItem;
@@ -41,6 +42,7 @@ type
     procedure MenuItem11Click(Sender: TObject);
     procedure MenuItem13Click(Sender: TObject);
     procedure MenuItem14Click(Sender: TObject);
+    procedure MenuItem15Click(Sender: TObject);
     procedure MenuItem2Click(Sender: TObject);
     procedure MenuItem4Click(Sender: TObject);
     procedure MenuItem6Click(Sender: TObject);
@@ -108,7 +110,7 @@ begin
                G := GetGValue(cor);
                B := GetBValue(cor);
 
-               Image2.Canvas.Pixels[i,k] := RGB(R,G,B);
+               Image2.Canvas.Pixels[k,i] := RGB(R,G,B);
                k -= 1;
              end;
 
@@ -124,20 +126,39 @@ begin
 end;
 
 procedure TForm1.MenuItem14Click(Sender: TObject);
-var
-  k : Integer;
-  begin                                 // transferir pra direita
-    k := Image1.Width;
+begin                                 // transferir pra direita
     for i:= 0 to Image1.Height do
       for j := 0 to Image1.Width do
           begin
-             cor := Image1.Canvas.Pixels[i,k];
+             cor := Image1.Canvas.Pixels[i,j];
              R := GetRValue(cor);
              G := GetGValue(cor);
              B := GetBValue(cor);
-             Image2.Canvas.Pixels[i,k] := RGB(R,G,B);
-             k -= 1;
+             Image2.Canvas.Pixels[i,j] := RGB(R,G,B);
           end;
+end;
+
+procedure TForm1.MenuItem15Click(Sender: TObject);     // sal e pimenta
+begin
+  Randomize();
+     for i := 0 to Image1.Height do
+       for j:= 0 to Image1.Width do
+         begin
+             cor := Image1.Canvas.Pixels[i,j];
+             R := GetRValue(cor);
+             G := GetGValue(cor);
+             B := GetBValue(cor);
+             Image2.Canvas.Pixels[i,j] := RGB(R,G,B);
+             if( random(9) = 0 ) then
+                 if( random(1) = 0 ) then
+                     begin
+                        Image2.Canvas.Pixels[i,j] := RGB(255,255,255);
+                     end
+                 else
+                     begin
+                        Image2.Canvas.Pixels[i,j] := RGB(0,0,0);
+                     end;
+         end;
 end;
 
 procedure TForm1.MenuItem4Click(Sender: TObject);
