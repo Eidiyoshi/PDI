@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, Menus,
-  StdCtrls, Windows, Unit2;
+  StdCtrls, Windows, Unit2, math;
 
 type
 
@@ -22,6 +22,9 @@ type
     MenuItem1: TMenuItem;
     MenuItem10: TMenuItem;
     MenuItem11: TMenuItem;
+    MenuItem12: TMenuItem;
+    MenuItem13: TMenuItem;
+    MenuItem14: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
     MenuItem4: TMenuItem;
@@ -36,6 +39,8 @@ type
     procedure Button1Click(Sender: TObject);
     procedure MenuItem10Click(Sender: TObject);
     procedure MenuItem11Click(Sender: TObject);
+    procedure MenuItem13Click(Sender: TObject);
+    procedure MenuItem14Click(Sender: TObject);
     procedure MenuItem2Click(Sender: TObject);
     procedure MenuItem4Click(Sender: TObject);
     procedure MenuItem6Click(Sender: TObject);
@@ -89,9 +94,50 @@ begin
              end;
 end;
 
-procedure TForm1.MenuItem11Click(Sender: TObject);
+procedure TForm1.MenuItem11Click(Sender: TObject);    // inverter imagem
+var
+  k : Integer;
+begin
+     for i := 0 to Image1.Height do
+         begin
+         k := Image1.Width;
+         for j := 0 to Image1.Width do
+             begin
+               cor := Image1.Canvas.Pixels[j,i];
+               R := GetRValue(cor);
+               G := GetGValue(cor);
+               B := GetBValue(cor);
+
+               Image2.Canvas.Pixels[i,k] := RGB(R,G,B);
+               k -= 1;
+             end;
+
+         end;
+
+
+
+end;
+
+procedure TForm1.MenuItem13Click(Sender: TObject);
 begin
   Form2.ShowModal;
+end;
+
+procedure TForm1.MenuItem14Click(Sender: TObject);
+var
+  k : Integer;
+  begin                                 // transferir pra direita
+    k := Image1.Width;
+    for i:= 0 to Image1.Height do
+      for j := 0 to Image1.Width do
+          begin
+             cor := Image1.Canvas.Pixels[i,k];
+             R := GetRValue(cor);
+             G := GetGValue(cor);
+             B := GetBValue(cor);
+             Image2.Canvas.Pixels[i,k] := RGB(R,G,B);
+             k -= 1;
+          end;
 end;
 
 procedure TForm1.MenuItem4Click(Sender: TObject);
