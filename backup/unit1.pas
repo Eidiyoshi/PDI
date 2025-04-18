@@ -26,6 +26,7 @@ type
     MenuItem13: TMenuItem;
     MenuItem14: TMenuItem;
     MenuItem15: TMenuItem;
+    MenuItem16: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
     MenuItem4: TMenuItem;
@@ -38,11 +39,13 @@ type
     SaveDialog1: TSaveDialog;
     Separator1: TMenuItem;
     procedure Button1Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
     procedure MenuItem10Click(Sender: TObject);
     procedure MenuItem11Click(Sender: TObject);
     procedure MenuItem13Click(Sender: TObject);
     procedure MenuItem14Click(Sender: TObject);
     procedure MenuItem15Click(Sender: TObject);
+    procedure MenuItem16Click(Sender: TObject);
     procedure MenuItem2Click(Sender: TObject);
     procedure MenuItem4Click(Sender: TObject);
     procedure MenuItem6Click(Sender: TObject);
@@ -67,14 +70,17 @@ implementation
 { TForm1 }
 
 procedure TForm1.MenuItem2Click(Sender: TObject);
-begin
+begin                                      // abrir arquivo
      if(OpenDialog1.Execute) then
          Image1.Picture.LoadFromFile(OpenDialog1.FileName);
-         for i := 0 to Image1.Height do
-             for j := 0 to Image1.Width do
-                 begin
-                      imgIn[i,j] := Image1.Canvas.Pixels[i,j]
-                 end;
+
+
+         Image2.Height := Image1.Height;
+
+         Image3.Height := Image1.Height;
+
+         Image4.Height := Image1.Height;
+
 end;
 
 procedure TForm1.Button1Click(Sender: TObject);
@@ -83,6 +89,11 @@ begin
          for j := 0 to Image1.Width do
              imgIn[i,j] := imgOut[i,j];
      Image1.Picture := Image2.Picture;
+end;
+
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+
 end;
 
 procedure TForm1.MenuItem10Click(Sender: TObject);
@@ -149,8 +160,8 @@ begin
              G := GetGValue(cor);
              B := GetBValue(cor);
              Image2.Canvas.Pixels[i,j] := RGB(R,G,B);
-             if( random(9) = 0 ) then
-                 if( random(1) = 0 ) then
+             if( random(10) = 0 ) then
+                 if( random(2) = 0 ) then
                      begin
                         Image2.Canvas.Pixels[i,j] := RGB(255,255,255);
                      end
@@ -159,6 +170,11 @@ begin
                         Image2.Canvas.Pixels[i,j] := RGB(0,0,0);
                      end;
          end;
+end;
+
+procedure TForm1.MenuItem16Click(Sender: TObject);   // equalizacao de imagem
+begin
+
 end;
 
 procedure TForm1.MenuItem4Click(Sender: TObject);
