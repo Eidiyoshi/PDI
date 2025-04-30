@@ -11,16 +11,15 @@ object Form1: TForm1
   LCLVersion = '3.8.0.0'
   object Image1: TImage
     Left = 40
-    Height = 88
+    Height = 300
     Top = 56
-    Width = 88
-    AutoSize = True
+    Width = 300
   end
   object Image2: TImage
     Left = 536
-    Height = 88
+    Height = 300
     Top = 56
-    Width = 88
+    Width = 300
   end
   object Button1: TButton
     Left = 432
@@ -33,15 +32,15 @@ object Form1: TForm1
   end
   object Image3: TImage
     Left = 40
-    Height = 88
+    Height = 300
     Top = 424
-    Width = 88
+    Width = 300
   end
   object Image4: TImage
     Left = 544
-    Height = 88
+    Height = 300
     Top = 424
-    Width = 88
+    Width = 300
   end
   object MainMenu1: TMainMenu
     Left = 1008

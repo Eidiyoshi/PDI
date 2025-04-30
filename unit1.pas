@@ -73,17 +73,6 @@ procedure TForm1.MenuItem2Click(Sender: TObject);
 begin                                      // abrir arquivo
      if(OpenDialog1.Execute) then
          Image1.Picture.LoadFromFile(OpenDialog1.FileName);
-
-
-         Image2.Height := Image1.Height;
-         Image2.Width := Image1.Width;
-
-         Image3.Width := Image1.Width;
-         Image3.Height := Image1.Height;
-
-         Image4.Width := Image1.Width;
-         Image4.Height := Image1.Height;
-
 end;
 
 procedure TForm1.Button1Click(Sender: TObject);
