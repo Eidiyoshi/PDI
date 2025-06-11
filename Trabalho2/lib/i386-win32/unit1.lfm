@@ -1,0 +1,122 @@
+object Form1: TForm1
+  Left = -8
+  Height = 997
+  Top = -8
+  Width = 1920
+  Caption = 'Form1'
+  ClientHeight = 997
+  ClientWidth = 1920
+  Menu = MainMenu1
+  LCLVersion = '3.8.0.0'
+  object Image1: TImage
+    Left = 32
+    Height = 312
+    Top = 40
+    Width = 808
+    AutoSize = True
+  end
+  object Image2: TImage
+    Left = 968
+    Height = 320
+    Top = 40
+    Width = 872
+    AutoSize = True
+  end
+  object Button1: TButton
+    Left = 864
+    Height = 65
+    Top = 152
+    Width = 75
+    Caption = '<--'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -37
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 0
+    OnClick = Button1Click
+  end
+  object Image3: TImage
+    Left = 8
+    Height = 240
+    Top = 384
+    Width = 320
+    AutoSize = True
+  end
+  object Image4: TImage
+    Left = 344
+    Height = 240
+    Top = 384
+    Width = 320
+    AutoSize = True
+  end
+  object Image5: TImage
+    Left = 680
+    Height = 240
+    Top = 384
+    Width = 320
+    AutoSize = True
+  end
+  object MainMenu1: TMainMenu
+    Left = 1312
+    Top = 72
+    object MenuItem1: TMenuItem
+      Caption = 'Arquivo'
+      object MenuItem2: TMenuItem
+        Caption = '&Abrir'
+        OnClick = MenuItem2Click
+      end
+      object MenuItem3: TMenuItem
+        Caption = '&Salvar'
+      end
+      object Separator1: TMenuItem
+        Caption = '-'
+      end
+      object MenuItem4: TMenuItem
+        Caption = 'Sai&r'
+      end
+    end
+    object MenuItem5: TMenuItem
+      Caption = 'Operações'
+      object MenuItem6: TMenuItem
+        Caption = 'Compressão Cosseno (wip)'
+        OnClick = MenuItem6Click
+      end
+      object MenuItem7: TMenuItem
+        Caption = 'Cinza'
+      end
+    end
+    object MenuItem8: TMenuItem
+      Caption = 'Filtros'
+      object MenuItem9: TMenuItem
+        Caption = 'Mínimo'
+        OnClick = MenuItem9Click
+      end
+      object MenuItem10: TMenuItem
+        Caption = 'Maximo'
+        OnClick = MenuItem10Click
+      end
+      object MenuItem11: TMenuItem
+        Caption = 'Ponto Médio'
+        OnClick = MenuItem11Click
+      end
+    end
+    object MenuItem12: TMenuItem
+      Caption = 'Cor'
+      OnClick = MenuItem12Click
+      object MenuItem13: TMenuItem
+        Caption = 'PseudoCor'
+        OnClick = MenuItem13Click
+      end
+    end
+  end
+  object OpenDialog1: TOpenDialog
+    Left = 1312
+    Top = 131
+  end
+  object SaveDialog1: TSaveDialog
+    Left = 1312
+    Top = 200
+  end
+end

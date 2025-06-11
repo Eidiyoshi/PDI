@@ -1,34 +1,35 @@
 object Form1: TForm1
-  Left = 599
-  Height = 657
-  Top = 198
-  Width = 1057
+  Left = -8
+  Height = 997
+  Top = -8
+  Width = 1920
   Caption = 'Form1'
-  ClientHeight = 657
-  ClientWidth = 1057
-  DesignTimePPI = 100
+  ClientHeight = 997
+  ClientWidth = 1920
   Menu = MainMenu1
   LCLVersion = '3.8.0.0'
   object Image1: TImage
-    Left = 17
-    Height = 250
-    Top = 42
-    Width = 333
+    Left = 40
+    Height = 288
+    Top = 40
+    Width = 656
+    AutoSize = True
   end
   object Image2: TImage
-    Left = 475
-    Height = 250
-    Top = 42
-    Width = 333
+    Left = 880
+    Height = 296
+    Top = 40
+    Width = 784
+    AutoSize = True
   end
   object Button1: TButton
-    Left = 375
-    Height = 68
-    Top = 117
-    Width = 78
+    Left = 744
+    Height = 65
+    Top = 112
+    Width = 75
     Caption = '<--'
     Font.CharSet = ANSI_CHARSET
-    Font.Height = -39
+    Font.Height = -37
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
     Font.Style = [fsBold]
@@ -38,26 +39,28 @@ object Form1: TForm1
   end
   object Image3: TImage
     Left = 8
-    Height = 250
-    Top = 400
-    Width = 333
+    Height = 240
+    Top = 384
+    Width = 320
+    AutoSize = True
   end
   object Image4: TImage
-    Left = 358
-    Height = 250
-    Top = 400
-    Width = 333
-    OnClick = Image4Click
+    Left = 344
+    Height = 240
+    Top = 384
+    Width = 320
+    AutoSize = True
   end
   object Image5: TImage
-    Left = 708
-    Height = 250
-    Top = 400
-    Width = 333
+    Left = 680
+    Height = 240
+    Top = 384
+    Width = 320
+    AutoSize = True
   end
   object MainMenu1: TMainMenu
-    Left = 925
-    Top = 75
+    Left = 1312
+    Top = 72
     object MenuItem1: TMenuItem
       Caption = 'Arquivo'
       object MenuItem2: TMenuItem
@@ -72,27 +75,48 @@ object Form1: TForm1
       end
       object MenuItem4: TMenuItem
         Caption = 'Sai&r'
-        OnClick = MenuItem4Click
       end
     end
     object MenuItem5: TMenuItem
       Caption = 'Operações'
       object MenuItem6: TMenuItem
-        Caption = 'Compressão Cosseno'
+        Caption = 'Compressão Cosseno (wip)'
         OnClick = MenuItem6Click
       end
       object MenuItem7: TMenuItem
-        Caption = 'MenuItem7'
-        OnClick = MenuItem7Click
+        Caption = 'Cinza'
+      end
+    end
+    object MenuItem8: TMenuItem
+      Caption = 'Filtros'
+      object MenuItem9: TMenuItem
+        Caption = 'Mínimo'
+        OnClick = MenuItem9Click
+      end
+      object MenuItem10: TMenuItem
+        Caption = 'Maximo'
+        OnClick = MenuItem10Click
+      end
+      object MenuItem11: TMenuItem
+        Caption = 'Ponto Médio'
+        OnClick = MenuItem11Click
+      end
+    end
+    object MenuItem12: TMenuItem
+      Caption = 'Cor'
+      OnClick = MenuItem12Click
+      object MenuItem13: TMenuItem
+        Caption = 'PseudoCor'
+        OnClick = MenuItem13Click
       end
     end
   end
   object OpenDialog1: TOpenDialog
-    Left = 925
-    Top = 136
+    Left = 1312
+    Top = 131
   end
   object SaveDialog1: TSaveDialog
-    Left = 925
-    Top = 208
+    Left = 1312
+    Top = 200
   end
 end
