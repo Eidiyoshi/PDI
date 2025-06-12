@@ -182,9 +182,9 @@ var
   k,l, soma : Integer;
 begin     // laplaciano gaussana
  Image4.Visible := True;
-  for i := 0 to Image1.Width do
+  for i := 2 to Image1.Width do
    begin
-   for j := 0 to Image1.Height do
+   for j := 2 to Image1.Height do
     begin
       soma := 0;
       for k := (i - 2) to (i + 2) do
@@ -233,14 +233,22 @@ end;
 
 procedure TForm1.MenuItem18Click(Sender: TObject);
 type
- vector = array [0..255] of Integer;
+ vector = array [0..256] of Extended;
 var
- histogram: vector;
- c : Integer;
- begin
-  for i:= 0 to 255 do
+ histogram, binEdges, binMids, weight1, weight2, histogramBinMids, cumsumMean1, cumsumMean2, mean1, mean2, interclassVariance: vector;
+ c, getmax, tom : Integer;
+ totalSum, maxi : Real;
+ temp, temp2: Extended;
+ begin // codigo retirado daq https://learnopencv.com/otsu-thresholding-with-opencv/
+  DefaultFormatSettings.DecimalSeparator := '.';
+  binEdges[1] := 0;
+   for i:= 1 to 256 do // n entendi exatamente o que isso era pra ser
    begin
     histogram[i] := 0;
+    binEdges[i+1] := binEdges[i] + 1.0;
+    binMids[i] := ((binEdges[i] + binEdges[i+1]) / 2);
+
+    histogram[i] := 0; // mas isso é obvio
    end;
 
    for i := 0 to Image1.Width do
@@ -252,6 +260,91 @@ var
       histogram[c] := histogram[c] + 1;
      end;
    end;
+
+   weight1[1] := histogram[1] + 1;
+   for i := 2 to 256 do
+   begin
+     weight1[i] := histogram[i] + weight1[i-1];
+   end;
+
+   totalSum := 0;
+   for i := 1 to 256 do
+   begin
+    totalSum := totalSum + histogram[i];
+   end;
+
+   weight2[1] := totalSum;
+   for i := 2 to 256 do
+   begin
+    weight2[i] := weight2[i-1] - histogram[i-1];
+    if ( weight2[i] = 0) then
+      begin
+       weight2[i] := 1;
+      end;
+
+   end;
+
+   for i:= 1 to 256 do
+   begin
+    histogramBinMids[i] := histogram[i] * binMids[i];
+   end;
+
+   cumsumMean1[0] := histogramBinMids[0];
+   cumsumMean2[0] := histogramBinMids[256];
+   j:= 255;
+   for i := 2 to 256 do
+   begin
+    cumsumMean1[i] := cumsumMean1[i-1] + histogramBinMids[i];
+    cumsumMean2[i] := cumsumMean2[i-1] + histogramBinMids[j];
+    j := j - 1;
+   end;
+
+   j := 256;
+   for i := 1 to 256 do
+   begin
+    mean1[i] := cumsumMean1[i] / weight1[i];
+    mean2[i] := cumsumMean2[i] / weight2[j];
+    j := j - 1;
+   end;
+
+   for i := 1 to 255 do                                         // ||||
+   begin                                       // pq desse numero? VVVV n sei n explicaram
+    temp := ((weight1[i] * weight2[i] * (mean1[i] - mean2[i+1])) / 10000000000);
+    temp2 := mean1[i] - mean2[i+1];
+    interClassVariance[i] := (temp) * (temp2);
+   end;
+
+   maxi := 0;
+   getmax := 0;
+   for i := 1 to 255 do
+   begin
+    if( maxi < interClassVariance[i] ) then
+      begin
+       maxi := interClassVariance[i];
+       getmax := i;
+      end;
+   end;
+
+   // fim do threshold de otsu, q esta em binMids[getmax]
+
+   // limiarizacao
+for i:= 0 to Image1.Height * 2 do
+  begin
+   for j := 0 to Image1.Width * 2 do
+   begin
+    cor := Image1.Canvas.Pixels[i,j];
+    tom := round(getRValue(cor) * 0.3 + getGValue(cor) * 0.587 + getBValue(cor) * 0.114);
+    if( tom > binMids[getMax] ) then
+      begin
+        Image2.Canvas.Pixels[i,j] := RGB(255,255,255);
+        end
+    else
+        begin
+         Image2.Canvas.Pixels[i,j] := RGB(0,0,0);
+        end;
+   end;
+  end;
+
 end;
 
 procedure TForm1.MenuItem2Click(Sender: TObject);
