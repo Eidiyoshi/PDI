@@ -1,11 +1,11 @@
 object Form1: TForm1
-  Left = -8
-  Height = 997
-  Top = -8
-  Width = 1920
+  Left = 775
+  Height = 823
+  Top = 90
+  Width = 1591
   Caption = 'Form1'
-  ClientHeight = 997
-  ClientWidth = 1920
+  ClientHeight = 823
+  ClientWidth = 1591
   Menu = MainMenu1
   LCLVersion = '3.8.0.0'
   object Image1: TImage
@@ -108,6 +108,22 @@ object Form1: TForm1
       object MenuItem13: TMenuItem
         Caption = 'PseudoCor'
         OnClick = MenuItem13Click
+      end
+    end
+    object MenuItem14: TMenuItem
+      Caption = 'Laplacianos'
+      object MenuItem15: TMenuItem
+        Caption = 'Laplaciano'
+        OnClick = MenuItem15Click
+      end
+      object MenuItem16: TMenuItem
+        Caption = 'Laplaciano Gaus'
+      end
+    end
+    object MenuItem17: TMenuItem
+      Caption = 'MenuItem17'
+      object MenuItem18: TMenuItem
+        Caption = 'Otsu'
       end
     end
   end

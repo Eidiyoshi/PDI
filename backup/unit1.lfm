@@ -1,31 +1,31 @@
 object Form1: TForm1
-  Left = -8
-  Height = 997
-  Top = -8
-  Width = 1920
+  Left = 775
+  Height = 823
+  Top = 90
+  Width = 1591
   Caption = 'Form1'
-  ClientHeight = 997
-  ClientWidth = 1920
+  ClientHeight = 823
+  ClientWidth = 1591
   Menu = MainMenu1
   LCLVersion = '3.8.0.0'
   object Image1: TImage
-    Left = 40
-    Height = 288
+    Left = 32
+    Height = 312
     Top = 40
-    Width = 656
+    Width = 808
     AutoSize = True
   end
   object Image2: TImage
-    Left = 880
-    Height = 296
+    Left = 968
+    Height = 320
     Top = 40
-    Width = 784
+    Width = 872
     AutoSize = True
   end
   object Button1: TButton
-    Left = 744
+    Left = 864
     Height = 65
-    Top = 112
+    Top = 152
     Width = 75
     Caption = '<--'
     Font.CharSet = ANSI_CHARSET
@@ -108,6 +108,16 @@ object Form1: TForm1
       object MenuItem13: TMenuItem
         Caption = 'PseudoCor'
         OnClick = MenuItem13Click
+      end
+    end
+    object MenuItem14: TMenuItem
+      Caption = 'MenuItem14'
+      object MenuItem15: TMenuItem
+        Caption = 'Laplaciano'
+        OnClick = MenuItem15Click
+      end
+      object MenuItem16: TMenuItem
+        Caption = 'Laplaciano Gaus'
       end
     end
   end

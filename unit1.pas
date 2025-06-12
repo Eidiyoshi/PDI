@@ -25,6 +25,11 @@ type
     MenuItem11: TMenuItem;
     MenuItem12: TMenuItem;
     MenuItem13: TMenuItem;
+    MenuItem14: TMenuItem;
+    MenuItem15: TMenuItem;
+    MenuItem16: TMenuItem;
+    MenuItem17: TMenuItem;
+    MenuItem18: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
     MenuItem4: TMenuItem;
@@ -37,8 +42,16 @@ type
     SaveDialog1: TSaveDialog;
     Separator1: TMenuItem;
     procedure Button1Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure Image1Click(Sender: TObject);
+    procedure Image3Click(Sender: TObject);
+    procedure Image4Click(Sender: TObject);
     procedure MenuItem12Click(Sender: TObject);
     procedure MenuItem13Click(Sender: TObject);
+    procedure MenuItem15Click(Sender: TObject);
+    procedure MenuItem16Click(Sender: TObject);
+    procedure MenuItem17Click(Sender: TObject);
+    procedure MenuItem18Click(Sender: TObject);
     procedure MenuItem1Click(Sender: TObject);
     procedure MenuItem2Click(Sender: TObject);
     procedure MenuItem4Click(Sender: TObject);
@@ -80,6 +93,26 @@ begin
   Image1.Picture := Image2.Picture;
 end;
 
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+
+end;
+
+procedure TForm1.Image1Click(Sender: TObject);
+begin
+
+end;
+
+procedure TForm1.Image3Click(Sender: TObject);
+begin
+
+end;
+
+procedure TForm1.Image4Click(Sender: TObject);
+begin
+
+end;
+
 procedure TForm1.MenuItem12Click(Sender: TObject);
 begin
 
@@ -88,12 +121,12 @@ end;
 procedure TForm1.MenuItem13Click(Sender: TObject);
 var tom: Integer;
 begin
-  for i:= 0 to Image1.Height do
+  for i:= 0 to Image1.Height * 2 do
   begin
-   for j := 0 to Image1.Width do
+   for j := 0 to Image1.Width * 2 do
    begin
     cor := Image1.Canvas.Pixels[i,j];
-    tom := getRValue(cor);
+    tom := round(getRValue(cor) * 0.3 + getGValue(cor) * 0.587 + getBValue(cor) * 0.114);
     if( tom < 64 ) then Image2.Canvas.Pixels[i,j] := RGB(0,0, 4 * tom);
     if( (tom >= 64) and (tom < 128) ) then Image2.Canvas.Pixels[i,j] := RGB(0,(tom-64)*4, 255);
     if( (tom >= 128) and (tom < 192) ) then Image2.Canvas.Pixels[i,j] := RGB(0,255 , 255 - (tom-128)*4);
@@ -102,14 +135,137 @@ begin
   end;
 end;
 
+procedure TForm1.MenuItem15Click(Sender: TObject);
+var
+  k,l, somaInt: Integer;
+  tom, soma : Real;
+begin           //laplaciano normal
+  Image3.Visible := True;
+  for i := 0 to Image1.Width do
+   begin
+   for j := 0 to Image1.Height do
+    begin
+      soma := 0;
+      for k := (i - 1) to (i + 1) do
+       begin
+         for l := (j - 1) to (j + 1) do
+          begin
+           cor := Image1.Canvas.Pixels[k,l];
+           tom := 0;
+           if(k = i) then
+             begin
+               tom := ((getRValue(cor) * 0.29) + (getGValue(cor) * 0.587) + (getBValue(cor) * 0.114)) * -1;
+             end;
+           if(l = j) then
+             begin
+               tom := ((getRValue(cor) * 0.29) + (getGValue(cor) * 0.587) + (getBValue(cor) * 0.114)) * -1;
+             end;
+           if((k = i) and (l=j)) then
+             begin
+               tom := ((getRValue(cor) * 0.29) + (getGValue(cor) * 0.587) + (getBValue(cor) * 0.114)) * 4;
+             end;
+
+            soma := soma + tom;
+
+          end;
+       end;
+
+      somaInt := round(soma);
+      Image3.Canvas.Pixels[i,j] := RGB(somaInt,somaInt,somaInt);
+
+    end;
+  end;
+end;
+
+procedure TForm1.MenuItem16Click(Sender: TObject);
+var
+  k,l, soma : Integer;
+begin     // laplaciano gaussana
+ Image4.Visible := True;
+  for i := 0 to Image1.Width do
+   begin
+   for j := 0 to Image1.Height do
+    begin
+      soma := 0;
+      for k := (i - 2) to (i + 2) do
+       begin
+         for l := (j - 2) to (j + 2) do
+          begin
+           cor := Image1.Canvas.Pixels[k,l];
+           c := 0; // se eu estivesse em C eu faria uma matriz pra multiplicar, mas n qro pesquisar como fazer isso em pascal
+                   // caso for extremamente ineficiente e tomar mto mto tempo, vc nem vai ta lendo isso
+           if(                            ((k = i-2) and (l=j))or
+                  ((k = i-1) and (l = j-1))          or          ((k = i-1) and (l=j+1))or
+           ((k = i) and ( l = j-2 ))                 or                 ((k = i) and (l = j+2))or
+                  ((k = i+1) and (l= j-1))           or          ((k = i+1) and (l = j+1))or
+                                          ((k = i+2) and (l=j))
+           ) then
+             begin
+               c := round((getRValue(cor) * 0.29) + (getGValue(cor) * 0.587) + (getBValue(cor) * 0.114)) * -1;
+             end;
+
+           if(                                     ((k = i-1) and (l = j))or
+                             ((k = i) and (l = j-1))         or            ((k = i) and (l = j+1))or
+                                                   ((k = i+1) and (l = j))
+           ) then
+             begin
+               c :=round((getRValue(cor) * 0.29) + (getGValue(cor) * 0.587) + (getBValue(cor) * 0.114)) * -2;
+             end;
+           if((k = i) and (l=j)) then
+             begin
+               c := round((getRValue(cor) * 0.29) + (getGValue(cor) * 0.587) + (getBValue(cor) * 0.114)) * 16;
+             end;
+
+            soma := soma + c;
+
+          end;
+       end;
+      Image4.Canvas.Pixels[i,j] := RGB(soma,soma,soma);
+
+    end;
+  end;
+end;
+
+procedure TForm1.MenuItem17Click(Sender: TObject);
+begin
+
+end;
+
+procedure TForm1.MenuItem18Click(Sender: TObject);
+type
+ vector = array [0..255] of Integer;
+var
+ histogram: vector;
+ c : Integer;
+ begin
+  for i:= 0 to 255 do
+   begin
+    histogram[i] := 0;
+   end;
+
+   for i := 0 to Image1.Width do
+   begin
+    for j := 0 to Image1.Height do
+     begin
+      cor := Image1.Canvas.Pixels[i,j];
+      c := round((getRValue(cor) * 0.29) + (getGValue(cor) * 0.587) + (getBValue(cor) * 0.114));
+      histogram[c] := histogram[c] + 1;
+     end;
+   end;
+end;
+
 procedure TForm1.MenuItem2Click(Sender: TObject);
 begin
   if (OpenDialog1.Execute)then
     begin
     Image1.Picture.LoadFromFile(OpenDialog1.FileName);
+    Image2.Width := Image1.Width;
+    Image2.Height := Image1.Height;
+    Image3.Width := Image1.Width;
+    Image3.Height := Image1.Height;
+    Image4.Width := Image1.Width;
+    Image4.Height := Image1.Height;
     end;
-
-  Image2.Picture := Image1.Picture;
 end;
 
 procedure TForm1.MenuItem4Click(Sender: TObject);
@@ -166,16 +322,17 @@ procedure TForm1.MenuItem9Click(Sender: TObject);
 var
    minimo, ponto, k, l: Integer;
 begin
-  for i :=1 to Image1.Height - 1 do
+  for i :=1 to Image1.Width *2  do
    begin
-   for j :=1 to Image1.Width - 1 do
+   for j :=1 to Image1.Height  do
     begin
     minimo := 999;
       for k := i - 1 to i + 1 do
        begin
          for l := j - 1 to j + 1 do
           begin
-          ponto := getRValue(Image1.Canvas.Pixels[k,l]);
+          cor := Image1.Canvas.Pixels[k,l];
+          ponto := round(getRValue(cor) * 0.3 + getGValue(cor) * 0.587 + getBValue(cor) * 0.114);
            if( ponto < minimo ) then
              begin
                minimo := ponto;
@@ -192,16 +349,17 @@ procedure TForm1.MenuItem10Click(Sender: TObject);
 var
    maximo, ponto, k, l: Integer;
 begin
-  for i :=1 to Image1.Height - 1 do
+  for i :=1 to Image1.Width *2do
    begin
-   for j :=1 to Image1.Width - 1 do
+   for j :=1 to Image1.Height do
     begin
     maximo := 0;
       for k := i - 1 to i + 1 do
        begin
          for l := j - 1 to j + 1 do
           begin
-          ponto := getRValue(Image1.Canvas.Pixels[k,l]);
+          cor := Image1.Canvas.Pixels[k,l];
+          ponto := round(getRValue(cor) * 0.3 + getGValue(cor) * 0.587 + getBValue(cor) * 0.114);
            if( ponto > maximo ) then
              begin
                maximo := ponto;
@@ -218,9 +376,9 @@ procedure TForm1.MenuItem11Click(Sender: TObject);
 var
    minimo, maximo, medio, ponto, k, l: Integer;
 begin
-  for i :=1 to Image1.Height - 1 do
+  for i :=1 to Image1.Width *2 do
    begin
-   for j :=1 to Image1.Width - 1 do
+   for j :=1 to Image1.Height  do
     begin
     minimo := 999;
     maximo := 0;
@@ -228,7 +386,8 @@ begin
        begin
          for l := j - 1 to j + 1 do
           begin
-          ponto := getRValue(Image1.Canvas.Pixels[k,l]);
+          cor := Image1.Canvas.Pixels[k,l];
+          ponto := round(getRValue(cor) * 0.3 + getGValue(cor) * 0.587 + getBValue(cor) * 0.114);
            if( ponto < minimo ) then
              begin
                minimo := ponto;
@@ -255,7 +414,7 @@ begin
       r := GetRValue(cor);
       g := GetGValue(cor);
       b := GetBValue(cor);
-      c := round( 0.299 *  R + 0.587 * G + 0.114 * B );
+      c := round( 0.299 *  r + 0.587 * g + 0.114 * b );
       Ims[i,j] := c;
       Image2.Canvas.Pixels[i,j] := RGB(c,c,c);
     end;
