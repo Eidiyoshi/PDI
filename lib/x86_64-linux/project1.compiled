@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Compiler Value="/usr/bin/fpc" Date="1739047534"/>
+  <Params Value=" -MObjFPC -Scghi -Cg -O1 -gw3 -gl -l -vewnhibq -Fi/home/eidiyoshi/Downloads/Pratica/lib/x86_64-linux -Fu/home/eidiyoshi/.lazarus/lib/units/x86_64-linux/gtk2 -Fu/home/eidiyoshi/.lazarus/lib/LCLBase/units/x86_64-linux -Fu/home/eidiyoshi/.lazarus/lib/freetypelaz/lib/x86_64-linux -Fu/usr/lib/lazarus/3.8/components/lazutils/lib/x86_64-linux -Fu/usr/lib/lazarus/3.8/packager/units/x86_64-linux -Fu/home/eidiyoshi/Downloads/Pratica/ -FU/home/eidiyoshi/Downloads/Pratica/lib/x86_64-linux/ -FE/home/eidiyoshi/Downloads/Pratica/ -o/home/eidiyoshi/Downloads/Pratica/project1 -dLCL -dLCLgtk2 project1.lpr"/>
+  <Complete Value="False"/>
+</CONFIG>
