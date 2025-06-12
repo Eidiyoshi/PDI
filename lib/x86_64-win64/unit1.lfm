@@ -1,50 +1,61 @@
 object Form1: TForm1
-  Left = 239
-  Height = 796
-  Top = 108
-  Width = 1077
+  Left = 517
+  Height = 631
+  Top = 122
+  Width = 1015
   Caption = 'Form1'
-  ClientHeight = 796
-  ClientWidth = 1077
+  ClientHeight = 631
+  ClientWidth = 1015
   Menu = MainMenu1
-  OnCreate = FormCreate
   LCLVersion = '3.8.0.0'
   object Image1: TImage
-    Left = 40
-    Height = 300
-    Top = 56
-    Width = 300
+    Left = 16
+    Height = 240
+    Top = 40
+    Width = 320
   end
   object Image2: TImage
-    Left = 536
-    Height = 300
-    Top = 56
-    Width = 300
+    Left = 456
+    Height = 240
+    Top = 40
+    Width = 320
   end
   object Button1: TButton
-    Left = 432
-    Height = 25
-    Top = 200
-    Width = 88
-    Caption = '<=='
+    Left = 360
+    Height = 65
+    Top = 112
+    Width = 75
+    Caption = '<--'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -37
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
     TabOrder = 0
     OnClick = Button1Click
   end
   object Image3: TImage
-    Left = 40
-    Height = 300
-    Top = 424
-    Width = 300
+    Left = 8
+    Height = 240
+    Top = 384
+    Width = 320
   end
   object Image4: TImage
-    Left = 544
-    Height = 300
-    Top = 424
-    Width = 300
+    Left = 344
+    Height = 240
+    Top = 384
+    Width = 320
+  end
+  object Image5: TImage
+    Left = 680
+    Height = 240
+    Top = 384
+    Width = 320
   end
   object MainMenu1: TMainMenu
-    Left = 1008
-    Top = 96
+    Left = 888
+    Top = 72
     object MenuItem1: TMenuItem
       Caption = 'Arquivo'
       object MenuItem2: TMenuItem
@@ -65,58 +76,29 @@ object Form1: TForm1
     object MenuItem5: TMenuItem
       Caption = 'Operações'
       object MenuItem6: TMenuItem
-        Caption = 'Converte_para_cinza'
+        Caption = 'Converte para Cinza'
         OnClick = MenuItem6Click
       end
       object MenuItem7: TMenuItem
-        Caption = 'Negativa_cinza'
+        Caption = 'Negativa Cinza'
         OnClick = MenuItem7Click
       end
       object MenuItem8: TMenuItem
-        Caption = 'Negativa_cor'
+        Caption = 'Negativa Colorida'
         OnClick = MenuItem8Click
       end
       object MenuItem9: TMenuItem
-        Caption = 'Separar_RGB'
+        Caption = 'Separar Canais'
         OnClick = MenuItem9Click
-      end
-      object MenuItem10: TMenuItem
-        Caption = 'Juntar_RGB'
-        OnClick = MenuItem10Click
-      end
-      object MenuItem11: TMenuItem
-        Caption = 'Inverter Imagem'
-        OnClick = MenuItem11Click
-      end
-      object MenuItem14: TMenuItem
-        Caption = 'Transferir pra direita'
-        OnClick = MenuItem14Click
-      end
-      object MenuItem16: TMenuItem
-        Caption = 'Equalização da Imagem1'
-        OnClick = MenuItem16Click
-      end
-      object MenuItem15: TMenuItem
-        Caption = 'Sal e Pimenta'
-        OnClick = MenuItem15Click
-      end
-    end
-    object MenuItem12: TMenuItem
-      Caption = 'Cor'
-      object MenuItem13: TMenuItem
-        Caption = 'Menu RGB HSV'
-        OnClick = MenuItem13Click
       end
     end
   end
   object OpenDialog1: TOpenDialog
-    FileName = 'C:\Users\cristian.eidi_unesp\Documents\pdi\Trouxa.png'
-    InitialDir = 'C:\Users\cristian.eidi_unesp\Documents\pdi\'
-    Left = 1008
-    Top = 160
+    Left = 888
+    Top = 131
   end
   object SaveDialog1: TSaveDialog
-    Left = 1008
-    Top = 216
+    Left = 888
+    Top = 200
   end
 end

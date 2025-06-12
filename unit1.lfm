@@ -1,50 +1,63 @@
 object Form1: TForm1
-  Left = 239
-  Height = 796
-  Top = 108
-  Width = 1077
+  Left = 258
+  Height = 921
+  Top = 63
+  Width = 1445
   Caption = 'Form1'
-  ClientHeight = 796
-  ClientWidth = 1077
+  ClientHeight = 921
+  ClientWidth = 1445
   Menu = MainMenu1
   OnCreate = FormCreate
   LCLVersion = '3.8.0.0'
   object Image1: TImage
-    Left = 40
-    Height = 300
-    Top = 56
-    Width = 300
+    Left = 32
+    Height = 312
+    Top = 40
+    Width = 808
+    AutoSize = True
+    OnClick = Image1Click
   end
   object Image2: TImage
-    Left = 536
-    Height = 300
-    Top = 56
-    Width = 300
-  end
-  object Button1: TButton
-    Left = 432
-    Height = 25
-    Top = 200
-    Width = 88
-    Caption = '<=='
-    TabOrder = 0
-    OnClick = Button1Click
+    Left = 936
+    Height = 320
+    Top = 32
+    Width = 872
   end
   object Image3: TImage
     Left = 40
-    Height = 300
-    Top = 424
-    Width = 300
+    Height = 352
+    Top = 392
+    Width = 448
+    AutoSize = True
+    OnClick = Image3Click
   end
   object Image4: TImage
-    Left = 544
-    Height = 300
-    Top = 424
-    Width = 300
+    Left = 576
+    Height = 352
+    Top = 384
+    Width = 440
+    AutoSize = True
+    OnClick = Image4Click
+  end
+  object Image5: TImage
+    Left = 1040
+    Height = 336
+    Top = 392
+    Width = 408
+    AutoSize = True
+  end
+  object Button1: TButton
+    Left = 856
+    Height = 25
+    Top = 184
+    Width = 75
+    Caption = '<--'
+    TabOrder = 0
+    OnClick = Button1Click
   end
   object MainMenu1: TMainMenu
-    Left = 1008
-    Top = 96
+    Left = 1312
+    Top = 72
     object MenuItem1: TMenuItem
       Caption = 'Arquivo'
       object MenuItem2: TMenuItem
@@ -59,64 +72,68 @@ object Form1: TForm1
       end
       object MenuItem4: TMenuItem
         Caption = 'Sai&r'
-        OnClick = MenuItem4Click
       end
     end
     object MenuItem5: TMenuItem
       Caption = 'Operações'
       object MenuItem6: TMenuItem
-        Caption = 'Converte_para_cinza'
+        Caption = 'Compressão Cosseno (wip)'
         OnClick = MenuItem6Click
       end
       object MenuItem7: TMenuItem
-        Caption = 'Negativa_cinza'
+        Caption = 'Cinza'
         OnClick = MenuItem7Click
       end
-      object MenuItem8: TMenuItem
-        Caption = 'Negativa_cor'
-        OnClick = MenuItem8Click
-      end
+    end
+    object MenuItem8: TMenuItem
+      Caption = 'Filtros'
       object MenuItem9: TMenuItem
-        Caption = 'Separar_RGB'
+        Caption = 'Mínimo'
         OnClick = MenuItem9Click
       end
       object MenuItem10: TMenuItem
-        Caption = 'Juntar_RGB'
+        Caption = 'Maximo'
         OnClick = MenuItem10Click
       end
       object MenuItem11: TMenuItem
-        Caption = 'Inverter Imagem'
+        Caption = 'Ponto Médio'
         OnClick = MenuItem11Click
-      end
-      object MenuItem14: TMenuItem
-        Caption = 'Transferir pra direita'
-        OnClick = MenuItem14Click
-      end
-      object MenuItem16: TMenuItem
-        Caption = 'Equalização da Imagem1'
-        OnClick = MenuItem16Click
-      end
-      object MenuItem15: TMenuItem
-        Caption = 'Sal e Pimenta'
-        OnClick = MenuItem15Click
       end
     end
     object MenuItem12: TMenuItem
       Caption = 'Cor'
+      OnClick = MenuItem12Click
       object MenuItem13: TMenuItem
-        Caption = 'Menu RGB HSV'
+        Caption = 'PseudoCor'
         OnClick = MenuItem13Click
+      end
+    end
+    object MenuItem14: TMenuItem
+      Caption = 'Laplaces'
+      object MenuItem15: TMenuItem
+        Caption = 'Laplaciano'
+        OnClick = MenuItem15Click
+      end
+      object MenuItem16: TMenuItem
+        Caption = 'Laplaciano Gaussiana'
+        OnClick = MenuItem16Click
+      end
+    end
+    object MenuItem17: TMenuItem
+      Caption = 'MenuItem17'
+      OnClick = MenuItem17Click
+      object MenuItem18: TMenuItem
+        Caption = 'OTSU'
+        OnClick = MenuItem18Click
       end
     end
   end
   object OpenDialog1: TOpenDialog
-    FileName = 'C:\Users\cristian.eidi_unesp\Documents\pdi\Trouxa.png'
-    InitialDir = 'C:\Users\cristian.eidi_unesp\Documents\pdi\'
-    Left = 1008
-    Top = 160
+    Left = 1312
+    Top = 131
   end
   object SaveDialog1: TSaveDialog
-    Left = 1008
-    Top = 216
+    Left = 1312
+    Top = 200
   end
 end
