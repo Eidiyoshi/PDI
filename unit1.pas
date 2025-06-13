@@ -138,7 +138,7 @@ end;
 procedure TForm1.MenuItem15Click(Sender: TObject);
 var
   k,l, somaInt: Integer;
-  tom, soma : Real;
+  tom, soma,  maximo, minimo : Real;
 begin           //laplaciano normal
   Image3.Visible := True;
   for i := 0 to Image1.Width do
@@ -170,16 +170,43 @@ begin           //laplaciano normal
           end;
        end;
 
-      somaInt := round(soma);
+      somaInt := round(soma/4);
       Image3.Canvas.Pixels[i,j] := RGB(somaInt,somaInt,somaInt);
 
     end;
   end;
+
+  // normalizar
+  maximo := 0;
+  minimo := 99999;
+  for i := 0 to Image3.Width do
+   begin
+    for j := 0 to Image3.Height do
+     begin
+       cor := Image3.Canvas.Pixels[i,j];
+       tom := ((getRValue(cor) * 0.29) + (getGValue(cor) * 0.587) + (getBValue(cor) * 0.114));
+       if( tom > maximo ) then maximo := tom;
+       if( tom < minimo ) then minimo := tom;
+     end;
+   end;
+
+  for i := 0 to Image3.Width do
+   begin
+    for j := 0 to Image3.Height do
+     begin
+      cor := Image3.Canvas.Pixels[i,j];
+      tom := ((getRValue(cor) * 0.29) + (getGValue(cor) * 0.587) + (getBValue(cor) * 0.114));
+      tom := (( tom - minimo ) / ( maximo - minimo )) * 255;
+      somaInt := round(tom);
+      Image3.Canvas.Pixels[i,j] := RGB(somaInt, somaInt, somaInt);
+     end;
+   end;
 end;
 
 procedure TForm1.MenuItem16Click(Sender: TObject);
 var
-  k,l, soma : Integer;
+  k,l, soma, somaInt : Integer;
+  maximo, minimo, tom: Real;
 begin     // laplaciano gaussana
  Image4.Visible := True;
   for i := 2 to Image1.Width do
@@ -220,10 +247,36 @@ begin     // laplaciano gaussana
 
           end;
        end;
+      soma := round(soma / 16);
       Image4.Canvas.Pixels[i,j] := RGB(soma,soma,soma);
 
     end;
   end;
+  //normalizar
+  maximo := 0;
+  minimo := 99999;
+  for i := 0 to Image3.Width do
+   begin
+    for j := 0 to Image3.Height do
+     begin
+       cor := Image4.Canvas.Pixels[i,j];
+       tom := ((getRValue(cor) * 0.29) + (getGValue(cor) * 0.587) + (getBValue(cor) * 0.114));
+       if( tom > maximo ) then maximo := tom;
+       if( tom < minimo ) then minimo := tom;
+     end;
+   end;
+
+  for i := 0 to Image3.Width do
+   begin
+    for j := 0 to Image3.Height do
+     begin
+      cor := Image4.Canvas.Pixels[i,j];
+      tom := ((getRValue(cor) * 0.29) + (getGValue(cor) * 0.587) + (getBValue(cor) * 0.114));
+      tom := ( tom - minimo ) / ( maximo - minimo );
+      somaInt := round(tom*255);
+      Image4.Canvas.Pixels[i,j] := RGB(somaInt, somaInt, somaInt);
+     end;
+   end;
 end;
 
 procedure TForm1.MenuItem17Click(Sender: TObject);
