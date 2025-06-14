@@ -197,13 +197,13 @@ begin           //laplaciano normal
 
       somaInt := round(soma/4);
       Image3.Canvas.Pixels[i,j] := RGB(somaInt,somaInt,somaInt);
-
     end;
   end;
 
   // normalizar
-  maximo := 0;
-  minimo := 99999;
+  cor := Image3.Canvas.Pixels[0,0];
+  maximo := ((getRValue(cor) * 0.29) + (getGValue(cor) * 0.587) + (getBValue(cor) * 0.114));
+  minimo := ((getRValue(cor) * 0.29) + (getGValue(cor) * 0.587) + (getBValue(cor) * 0.114));
   for i := 0 to Image3.Width do
    begin
     for j := 0 to Image3.Height do
@@ -214,7 +214,6 @@ begin           //laplaciano normal
        if( tom < minimo ) then minimo := tom;
      end;
    end;
-
   for i := 0 to Image3.Width do
    begin
     for j := 0 to Image3.Height do
@@ -226,17 +225,24 @@ begin           //laplaciano normal
       Image3.Canvas.Pixels[i,j] := RGB(somaInt, somaInt, somaInt);
      end;
    end;
+  k:=k;
 end;
 
 procedure TForm1.MenuItem16Click(Sender: TObject);
 var
   k,l, soma, somaInt : Integer;
   maximo, minimo, tom: Real;
+    teste : array[0..319,0..239] of integer;
 begin     // laplaciano gaussana
  Image4.Visible := True;
-  for i := 2 to Image1.Width do
+ for i := 0 to Image1.Width-1 do
    begin
-   for j := 2 to Image1.Height do
+   for j := 0 to Image1.Height-1 do
+        teste[i,j] := 0;
+   end;
+  for i := 2 to Image1.Width-3 do
+   begin
+   for j := 2 to Image1.Height-3 do
     begin
       soma := 0;
       for k := (i - 2) to (i + 2) do
@@ -274,15 +280,15 @@ begin     // laplaciano gaussana
        end;
       soma := round(soma / 16);
       Image4.Canvas.Pixels[i,j] := RGB(soma,soma,soma);
-
+      teste[i,j] := soma;
     end;
   end;
   //normalizar
   maximo := 0;
   minimo := 99999;
-  for i := 0 to Image3.Width do
+  for i := 0 to Image3.Width-1 do
    begin
-    for j := 0 to Image3.Height do
+    for j := 0 to Image3.Height-1 do
      begin
        cor := Image4.Canvas.Pixels[i,j];
        tom := ((getRValue(cor) * 0.29) + (getGValue(cor) * 0.587) + (getBValue(cor) * 0.114));
@@ -291,17 +297,19 @@ begin     // laplaciano gaussana
      end;
    end;
 
-  for i := 0 to Image3.Width do
+  for i := 0 to Image3.Width-1 do
    begin
-    for j := 0 to Image3.Height do
+    for j := 0 to Image3.Height-1 do
      begin
       cor := Image4.Canvas.Pixels[i,j];
       tom := ((getRValue(cor) * 0.29) + (getGValue(cor) * 0.587) + (getBValue(cor) * 0.114));
       tom := ( tom - minimo ) / ( maximo - minimo );
       somaInt := round(tom*255);
       Image4.Canvas.Pixels[i,j] := RGB(somaInt, somaInt, somaInt);
+      teste[i,j] := somaInt;
      end;
    end;
+  k :=k;
 end;
 
 procedure TForm1.MenuItem17Click(Sender: TObject);
@@ -449,7 +457,7 @@ var
   ci, cj, dct1, soma, resultado: real;
   k, l : Integer;
 begin
-  loadArray();
+  //loadArray();
   for j:=0 to Image1.Height - 1 do
       for i := 0 to Image1.Width - 1 do
           begin
@@ -483,7 +491,6 @@ begin
                  //Image2.Canvas.Pixels[i,j] := RGB(c,c,c);
                  dct[i,j] := resultado;
           end;
-  k := k;
 end;
 
 
