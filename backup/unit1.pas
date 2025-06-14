@@ -70,14 +70,44 @@ type
 var
   Form1: TForm1;
   r, g, b, c, i, j : integer;
-  ime, ims : array[0..319,0..239] of integer;
+  ime, ims : array[0..319,0..239] of TColor;
+  dct : array[0..319,0..239] of real;
   cor : TColor;
+  firstTime: bool;
 
 implementation
 
 {$R *.lfm}
 
 { TForm1 }
+
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+  firstTime := true;
+  for i := 0 to 319 do
+    begin
+           for j := 0 to 239 do
+           begin
+               ime[i,j] := RGB(255,255,255);
+               ims[i,j] := RGB(255,255,255);
+           end;
+    end;
+end;
+
+procedure loadArray();
+begin
+    if firstTime = true then
+    begin
+         for i := 0 to Form1.Image1.Width - 1 do
+         begin
+             for j := 0 to Form1.Image1.Height - 1 do
+             begin
+                  ime[i,j] := Form1.Image1.Canvas.Pixels[i,j];
+             end;
+         end;
+         firstTime := false;
+    end;
+end;
 
 procedure TForm1.MenuItem1Click(Sender: TObject);
 begin
@@ -91,11 +121,6 @@ begin
     Ime[i,j] := Ims[i,j];
 
   Image1.Picture := Image2.Picture;
-end;
-
-procedure TForm1.FormCreate(Sender: TObject);
-begin
-
 end;
 
 procedure TForm1.Image1Click(Sender: TObject);
@@ -273,7 +298,7 @@ begin     // laplaciano gaussana
       cor := Image4.Canvas.Pixels[i,j];
       tom := ((getRValue(cor) * 0.29) + (getGValue(cor) * 0.587) + (getBValue(cor) * 0.114));
       tom := ( tom - minimo ) / ( maximo - minimo );
-      somaInt := round(tom);
+      somaInt := round(tom*255);
       Image4.Canvas.Pixels[i,j] := RGB(somaInt, somaInt, somaInt);
      end;
    end;
@@ -421,11 +446,12 @@ end;
 
 procedure TForm1.MenuItem6Click(Sender: TObject);
 var
-  ci, cj, dct1, soma : real;
+  ci, cj, dct1, soma, resultado: real;
   k, l : Integer;
 begin
-  for j:=0 to Image1.Height do
-      for i := 0 to Image1.Width do
+  loadArray();
+  for j:=0 to Image1.Height - 1 do
+      for i := 0 to Image1.Width - 1 do
           begin
                if (i = 0) then
                  begin
@@ -445,17 +471,19 @@ begin
                     cj := sqrt(2) / sqrt(Image1.Width);
                end;
                soma := 0;
-               for k:= 0 to Image1.Height do
-                for l:= 0 to Image1.Width do
+               for k:= 0 to Image1.Height - 1 do
+                for l:= 0 to Image1.Width - 1 do
                  begin
-                      dct1 :=  GetRValue(Image1.Canvas.Pixels[i,k]) *
-                               cos((2 * k + 1) * i * 3.14 / (2 * Image1.Height)) *
-                               cos((2 * l + 1) * j * 3.14 / (2 * Image1.Width));
+                      dct1 :=  GetRValue(Image1.Canvas.Pixels[i,k]);//ime[i,k]);
+                      dct1 :=  dct1 * cos((2 * k + 1) * i * 3.142857 / (2 * Image1.Height));
+                      dct1 :=  dct1 * cos((2 * l + 1) * j * 3.142857 / (2 * Image1.Width));
                       soma := soma + dct1;
                  end;
-                 c := Trunc(ci * cj * soma);
-                 Image2.Canvas.Pixels[i,j] := RGB(c,c,c);
+                 resultado := ci * cj * soma;//Trunc();
+                 //Image2.Canvas.Pixels[i,j] := RGB(c,c,c);
+                 dct[i,j] := resultado;
           end;
+  k := k;
 end;
 
 
