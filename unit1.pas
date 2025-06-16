@@ -32,8 +32,9 @@ type
     MenuItem18: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem20: TMenuItem;
-    MenuItem3: TMenuItem;
     MenuItem4: TMenuItem;
+    MenuItem5: TMenuItem;
+    MenuItem6: TMenuItem;
     MenuItem8: TMenuItem;
     MenuItem9: TMenuItem;
     OpenDialog1: TOpenDialog;
@@ -53,6 +54,7 @@ type
     procedure MenuItem1Click(Sender: TObject);
     procedure MenuItem20Click(Sender: TObject);
     procedure MenuItem2Click(Sender: TObject);
+    procedure MenuItem3Click(Sender: TObject);
     procedure MenuItem4Click(Sender: TObject);
     procedure MenuItem6Click(Sender: TObject);
     procedure MenuItem7Click(Sender: TObject);
@@ -579,17 +581,12 @@ begin
     end;
 end;
 
-procedure TForm1.MenuItem4Click(Sender: TObject);
-begin
-  Close();
-end;
-
-procedure TForm1.MenuItem6Click(Sender: TObject);
+procedure TForm1.MenuItem3Click(Sender: TObject);
 var
   ci, cj, dct1, soma: real;
   k, l, resultado, resultadoMin : Integer;
 begin
-  //loadArray();
+  // dct inversa
   for j:=0 to Image1.Height - 1 do
       for i := 0 to Image1.Width - 1 do
           begin
@@ -623,7 +620,54 @@ begin
                 end;
                  resultado := trunc(ci * cj * soma);//Trunc();
                  resultadoMin := min(255,resultado);
-                 Image2.Canvas.Pixels[i,j] := RGB(resultadoMin,resultadoMin,resultadoMin);
+                 dct[i,k] := RGB(resultadoMin,resultadoMin,resultadoMin);
+          end;
+end;
+
+procedure TForm1.MenuItem4Click(Sender: TObject);
+begin
+  Close();
+end;
+
+procedure TForm1.MenuItem6Click(Sender: TObject);
+var
+  ci, cj, dct1, soma, resultado: real;
+  k, l : Integer;
+begin
+  //loadArray();
+  for j:=0 to Image1.Height - 1 do
+      for i := 0 to Image1.Width - 1 do
+          begin
+               if (i = 0) then
+                 begin
+                 ci := 1 / sqrt(Image1.Height);
+                 end
+               else
+               begin
+                    ci := sqrt(2) / sqrt(Image1.Height);
+               end;
+
+               if (j = 0) then
+                 begin
+                 cj := 1 / sqrt(Image1.Width);
+                 end
+               else
+               begin
+                    cj := sqrt(2) / sqrt(Image1.Width);
+               end;
+               soma := 0;
+               for k:= 0 to Image1.Height - 1 do
+                begin
+                for l:= 0 to Image1.Width - 1 do
+                 begin
+                      dct1 :=  GetRValue(Image1.Canvas.Pixels[i,k]);//ime[i,k]);
+                      dct1 :=  dct1 * cos((2 * k + 1) * i * 3.142857 / (2 * Image1.Height));
+                      dct1 :=  dct1 * cos((2 * l + 1) * j * 3.142857 / (2 * Image1.Width));
+                      soma := soma + dct1;
+                 end;
+                end;
+                 resultado := ci * cj * soma;
+                 dct[i,k] := resultado;
           end;
 end;
 
