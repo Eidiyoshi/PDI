@@ -30,7 +30,9 @@ type
     MenuItem16: TMenuItem;
     MenuItem17: TMenuItem;
     MenuItem18: TMenuItem;
+    MenuItem19: TMenuItem;
     MenuItem2: TMenuItem;
+    MenuItem20: TMenuItem;
     MenuItem3: TMenuItem;
     MenuItem4: TMenuItem;
     MenuItem5: TMenuItem;
@@ -53,6 +55,7 @@ type
     procedure MenuItem17Click(Sender: TObject);
     procedure MenuItem18Click(Sender: TObject);
     procedure MenuItem1Click(Sender: TObject);
+    procedure MenuItem20Click(Sender: TObject);
     procedure MenuItem2Click(Sender: TObject);
     procedure MenuItem4Click(Sender: TObject);
     procedure MenuItem6Click(Sender: TObject);
@@ -111,6 +114,147 @@ end;
 
 procedure TForm1.MenuItem1Click(Sender: TObject);
 begin
+
+end;
+
+procedure TForm1.MenuItem20Click(Sender: TObject);
+var
+  vmax, vmin, h, s, l, RR, GG, BB, lmax, lmin, temp1, temp2, temp3, delta : Real;
+  flag: Integer;
+begin
+  lmax := -1;
+  lmin := 99;
+  for i := 0 to Image1.Width do // pegando max e min
+  begin
+      for j := 0 to Image1.Height do
+      begin
+       cor := Image1.Canvas.Pixels[i,j];
+       r := getRValue(cor);
+       g := getGValue(cor);
+       b := getBValue(cor);
+       vmax := max( (max(r,g)) ,b) / 255;
+       vmin := min( (min(r,g)) ,b) / 255;
+       l := ( vmax + vmin ) / 2;
+
+       if( l > lmax ) then
+       begin
+            lmax := l;
+       end;
+
+       if( l < lmin ) then
+       begin
+            lmin := l;
+       end;
+
+      end;
+  end;
+
+  for i := 0 to Image1.Width do // equalizando
+  begin
+      for j := 0 to Image1.Height do
+      begin
+       cor := Image1.Canvas.Pixels[i,j];
+       r := getRValue(cor);
+       g := getGValue(cor);
+       b := getBValue(cor);
+
+       // calcular hsl primeiro pra dps transformar em rgb
+       vmax := max( (max(r,g)) ,b) / 255;
+       vmin := min( (min(r,g)) ,b) / 255;
+       RR := r / 255;
+       GG := g / 255;
+       BB := b / 255;
+
+       l := ( vmax + vmin ) / 2;
+       delta := ( vmax - vmin);
+
+
+       if ( delta = 0 ) then
+       begin
+            s := 0;
+       end;
+       if( delta <> 0 ) then
+       begin
+            s := (delta) / ( 1.0 - abs((2*l) - 1) ) ;
+       end;
+       
+       l := (( l - lmin ) / ( lmax - lmin ));
+
+       flag := 1;
+       if( delta = 0 ) then
+       begin
+            h := 0;
+            flag := 0;
+       end;
+       if( (vmax = ( RR )) and (flag = 1)) then
+       begin
+            h := ((GG-BB)/(delta));
+       end;
+       if( (vmax = ( GG )) and (flag = 1)) then
+       begin
+            h := 2 + ((BB-RR)/(delta));
+       end;
+       if( (vmax = ( BB )) and (flag =1)) then
+       begin
+            h := 4 + ((RR-GG)/(delta));
+       end;
+
+       h := h * 60;
+       if ( h < 0 ) then
+       begin
+            h := h + 360;
+       end;
+
+       // hsl pra rgb
+       temp1 := ( 1 - abs(2 * l - 1.0) ) * s;
+       temp2 := temp1 * ( 1 - abs( ((round(h/60)) MOD 2) - 1) );
+       temp3 := l - (temp1/2);
+       //temp1 = c
+       //temp2 = x
+       //temp3 = m
+
+       if( (0 <= h) and (h < 60)) then
+       begin
+        r := round((temp1+ temp3) * 255);
+        g := round((temp2+ temp3) * 255);
+        b := round((temp3) * 255);
+       end;
+       if( (60 <= h) and (h < 120)) then
+       begin
+        r := round((temp2+ temp3) * 255);
+        g := round((temp1+ temp3) * 255);
+        b := round((temp3) * 255);
+       end;
+       if( (120 <= h) and (h < 180)) then
+       begin
+        r := round((temp3) * 255);
+        g := round((temp1+ temp3) * 255);
+        b := round((temp2+ temp3) * 255);
+       end;
+       if( (180 <= h) and (h < 240)) then
+       begin
+        r := round((temp3) * 255);
+        g := round((temp2+ temp3) * 255);
+        b := round((temp1+ temp3) * 255);
+       end;
+       if( (240 <= h) and (h < 300)) then
+       begin
+        r := round((temp2+ temp3) * 255);
+        g := round((temp3) * 255);
+        b := round((temp1+ temp3) * 255);
+       end;
+       if( (300 <= h) and (h < 360)) then
+       begin
+        r := round((temp1+ temp3) * 255);
+        g := round((temp3) * 255);
+        b := round((temp2+ temp3) * 255);
+       end;
+
+       Image2.Canvas.Pixels[i,j] := RGB(r,g,b);
+
+      end;
+  end;
+
 
 end;
 
@@ -214,6 +358,7 @@ begin           //laplaciano normal
        if( tom < minimo ) then minimo := tom;
      end;
    end;
+
   for i := 0 to Image3.Width do
    begin
     for j := 0 to Image3.Height do
@@ -235,12 +380,7 @@ var
 begin     // laplaciano gaussana
  Image4.Visible := True;
  for i := 0 to Image1.Width-1 do
-   begin
-   for j := 0 to Image1.Height-1 do
-        teste[i,j] := 0;
-   end;
-  for i := 2 to Image1.Width-3 do
-   begin
+  begin
    for j := 2 to Image1.Height-3 do
     begin
       soma := 0;
@@ -450,8 +590,8 @@ end;
 
 procedure TForm1.MenuItem6Click(Sender: TObject);
 var
-  ci, cj, dct1, soma, resultado: real;
-  k, l : Integer;
+  ci, cj, dct1, soma: real;
+  k, l, resultado, resultadoMin : Integer;
 begin
   //loadArray();
   for j:=0 to Image1.Height - 1 do
@@ -476,6 +616,7 @@ begin
                end;
                soma := 0;
                for k:= 0 to Image1.Height - 1 do
+                begin
                 for l:= 0 to Image1.Width - 1 do
                  begin
                       dct1 :=  GetRValue(Image1.Canvas.Pixels[i,k]);//ime[i,k]);
@@ -483,9 +624,10 @@ begin
                       dct1 :=  dct1 * cos((2 * l + 1) * j * 3.142857 / (2 * Image1.Width));
                       soma := soma + dct1;
                  end;
-                 resultado := ci * cj * soma;//Trunc();
-                 //Image2.Canvas.Pixels[i,j] := RGB(c,c,c);
-                 dct[i,j] := resultado;
+                end;
+                 resultado := trunc(ci * cj * soma);//Trunc();
+                 resultadoMin := min(255,resultado);
+                 Image2.Canvas.Pixels[i,j] := RGB(resultadoMin,resultadoMin,resultadoMin);
           end;
 end;
 
