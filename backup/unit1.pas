@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, Menus,
-  StdCtrls, Windows;
+  StdCtrls, Windows, Math;
 
 type
 
@@ -579,49 +579,52 @@ begin
     Image3.Height := Image1.Height;
     Image4.Width := Image1.Width;
     Image4.Height := Image1.Height;
+    Image5.Width := Image1.Width;
+    Image5.Height := Image1.Height;
     end;
 end;
 
 procedure TForm1.MenuItem3Click(Sender: TObject);
 var
-  ci, cj, dct1, soma: real;
-  k, l, resultado, resultadoMin : Integer;
+  ci, cj, dct1, soma, resultado: Double;
+  k, l, resultadoInt : Integer;
 begin
   // dct inversa
-  for j:=0 to Image1.Height - 1 do
-      for i := 0 to Image1.Width - 1 do
+   for j:=0 to Image2.Height - 1 do
+      for i := 0 to Image2.Width - 1 do
           begin
                if (i = 0) then
                  begin
-                 ci := 1 / sqrt(Image1.Height);
+                 ci := 1 / sqrt(Image2.Height);
                  end
                else
                begin
-                    ci := sqrt(2) / sqrt(Image1.Height);
+                    ci := sqrt(2) / sqrt(Image2.Height);
                end;
 
                if (j = 0) then
                  begin
-                 cj := 1 / sqrt(Image1.Width);
+                 cj := 1 / sqrt(Image2.Width);
                  end
                else
                begin
-                    cj := sqrt(2) / sqrt(Image1.Width);
+                    cj := sqrt(2) / sqrt(Image2.Width);
                end;
                soma := 0;
-               for k:= 0 to Image1.Height - 1 do
+               for k:= 0 to Image2.Height - 1 do
                 begin
-                for l:= 0 to Image1.Width - 1 do
+                for l:= 0 to Image2.Width - 1 do
                  begin
-                      dct1 :=  GetRValue(Image1.Canvas.Pixels[i,k]);//ime[i,k]);
-                      dct1 :=  dct1 * cos((2 * k + 1) * i * 3.142857 / (2 * Image1.Height));
-                      dct1 :=  dct1 * cos((2 * l + 1) * j * 3.142857 / (2 * Image1.Width));
+                      dct1 :=  GetRValue(Image2.Canvas.Pixels[k,l]);//ime[i,k]);
+                      dct1 :=  dct1 * cos((2 * k + 1) * i * 3.142857 / (2 * Image2.Height));
+                      dct1 :=  dct1 * cos((2 * l + 1) * j * 3.142857 / (2 * Image2.Width));
                       soma := soma + dct1;
                  end;
                 end;
-                 resultado := trunc(ci * cj * soma);//Trunc();
-                 resultadoMin := min(255,resultado);
-                 dct[i,k] := RGB(resultadoMin,resultadoMin,resultadoMin);
+                 resultado := ci * cj * soma;
+
+                resultadoInt := trunc(resultado);
+                Image5.Canvas.Pixels[i,j] := RGB(resultadoInt,resultadoInt,resultadoInt);
           end;
 end;
 
@@ -632,12 +635,13 @@ end;
 
 procedure TForm1.MenuItem6Click(Sender: TObject);
 var
-  ci, cj, dct1, soma, resultado: real;
-  k, l : Integer;
+  ci, cj, dct1, soma, resultado: Double;
+  k, l, resultadoInt : Integer;
 begin
   //loadArray();
-  for j:=0 to Image1.Height - 1 do
-      for i := 0 to Image1.Width - 1 do
+  for i :=0 to Image1.Width - 1 do
+   begin
+      for j := 0 to Image1.Height - 1 do
           begin
                if (i = 0) then
                  begin
@@ -661,15 +665,18 @@ begin
                 begin
                 for l:= 0 to Image1.Width - 1 do
                  begin
-                      dct1 :=  GetRValue(Image1.Canvas.Pixels[i,k]);//ime[i,k]);
+                      cor := Image1.Canvas.Pixels[k,l];
+                      dct1 :=  (GetRValue(cor) + getGValue(cor) + getBValue(cor)) / 3 ;//ime[i,k]
                       dct1 :=  dct1 * cos((2 * k + 1) * i * 3.142857 / (2 * Image1.Height));
                       dct1 :=  dct1 * cos((2 * l + 1) * j * 3.142857 / (2 * Image1.Width));
                       soma := soma + dct1;
                  end;
                 end;
-                 resultado := ci * cj * soma;
-                 dct[i,k] := resultado;
+                resultado := ci * cj * soma;
+                resultadoInt := trunc(resultado);
+                Image2.Canvas.Pixels[i,j] := RGB(resultadoInt,resultadoInt,resultadoInt);
           end;
+   end;
 end;
 
 
